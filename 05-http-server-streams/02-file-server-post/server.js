@@ -27,6 +27,9 @@ server.on('request', (req, res) => {
         if (err.code === 'EEXIST') {
           res.statusCode = 409;
           res.end('Fail already');
+        } else {
+          res.statusCode = 500;
+          res.end('Server error');
         }
       });
 
