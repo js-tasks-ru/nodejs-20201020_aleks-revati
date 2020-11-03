@@ -12,20 +12,22 @@ server.on('request', (req, res) => {
   if (pathname.includes('/')) {
     res.statusCode = 400;
     res.end('Wrong path');
+    return;
   }
 
   switch (req.method) {
     case 'DELETE':
-      fs.unlink(filepath, function (err) {
+      fs.unlink(filepath, (err) => {
         if (err && err.code === 'ENOENT') {
           res.statusCode = 404;
           res.end('File not found');
+          return;
         }
         res.statusCode = 200;
         res.end('File was deleted');
       });
 
-      req.on('error', function (err) {
+      req.on('error', (err) => {
         if (err) {
           res.statusCode = 500;
           res.end('Server error');

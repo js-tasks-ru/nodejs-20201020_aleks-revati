@@ -14,6 +14,7 @@ server.on('request', (req, res) => {
   if (pathname.includes('/')) {
     res.statusCode = 400;
     res.end('Wrong path');
+    return;
   }
 
   switch (req.method) {
