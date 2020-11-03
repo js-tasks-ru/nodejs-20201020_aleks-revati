@@ -1,5 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* eslint-disable space-before-function-paren */
 const url = require('url');
 const http = require('http');
 const path = require('path');
