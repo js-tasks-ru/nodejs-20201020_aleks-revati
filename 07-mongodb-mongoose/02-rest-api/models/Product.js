@@ -18,18 +18,27 @@ const productSchema = new mongoose.Schema({
   },
 
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     ref: 'Category',
     required: true,
   },
 
   subcategory: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
 
   images: [String],
 
+});
+
+productSchema.set('toObject', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = doc.id;
+    delete ret._id;
+    delete ret.__v;
+  },
 });
 
 module.exports = connection.model('Product', productSchema);
