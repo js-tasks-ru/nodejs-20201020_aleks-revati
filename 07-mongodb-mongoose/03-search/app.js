@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-spacing */
 const Koa = require('koa');
 const Router = require('koa-router');
 const { productsByQuery } = require('./controllers/products');
