@@ -41,9 +41,7 @@ app.use((ctx, next) => {
       lastVisit: new Date(),
     });
 
-    await session.save((err) => {
-      if (err) throw err;
-    });
+    await session.save();
 
     return token;
   };
