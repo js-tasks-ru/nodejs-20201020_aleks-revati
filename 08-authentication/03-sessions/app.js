@@ -69,9 +69,7 @@ router.use(async (ctx, next) => {
   }
 
   session.lastVisit = new Date();
-  await session.save((err) => {
-    if (err) throw err;
-  });
+  await session.save();
 
   ctx.user = session.user;
   return next();
