@@ -20,6 +20,8 @@ module.exports.register = async (ctx, next) => {
     ctx.body = { status: 'ok' };
     return next();
   } catch (err) {
+    if (err.name !== 'ValidationError') throw err;
+
     ctx.status = 400;
     if (err.errors.displayName) ctx.body = { errors: { displayName: 'Такое имя уже существует' } };
     if (err.errors.email) ctx.body = { errors: { email: 'Такой email уже существует' } };
@@ -38,5 +40,7 @@ module.exports.confirm = async (ctx, next) => {
     ctx.body = { error: 'Ссылка подтверждения недействительна или устарела' };
     return next();
   }
+
+  ctx.body = await ctx.login(user);
   ctx.body = { token: uuid() };
 };
