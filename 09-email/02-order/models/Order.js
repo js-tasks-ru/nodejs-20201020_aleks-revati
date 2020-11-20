@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
         validator(value) {
           return /\+?\d{6,14}/.test(value);
         },
-        message: 'Неверный формат номера телефона',
+        message: 'Неверный формат номера телефона.',
       },
     ],
   },
