@@ -11,6 +11,6 @@ module.exports.messageList = async function messages(ctx, next) {
 
     return next();
   } catch (err) {
-    throw err;
+    next(err);
   }
 };

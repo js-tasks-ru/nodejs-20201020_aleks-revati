@@ -17,22 +17,18 @@ function socket(server) {
       socket.user = session.user;
       next();
     } catch (err) {
-      throw err;
+      next(err);
     }
   });
 
   io.on('connection', function(socket) {
     socket.on('message', async (msg) => {
-      try {
-        await Message.create({
-          date: new Date(),
-          text: msg,
-          chat: socket.user._id,
-          user: socket.user.displayName,
-        });
-      } catch (err) {
-        throw err;
-      }
+      await Message.create({
+        date: new Date(),
+        text: msg,
+        chat: socket.user._id,
+        user: socket.user.displayName,
+      });
     });
   });
 
