@@ -7,18 +7,14 @@ function socket(server) {
   const io = socketIO(server);
 
   io.use(async function(socket, next) {
-    try {
-      const {token} = socket.handshake.query;
-      if (!token) throw next(new Error('anonymous sessions are not allowed'));
+    const {token} = socket.handshake.query;
+    if (!token) throw next(new Error('anonymous sessions are not allowed'));
 
-      const session = await Session.findOne({token}).populate('user');
-      if (!session) throw next(new Error('wrong or expired session token'));
+    const session = await Session.findOne({token}).populate('user');
+    if (!session) throw next(new Error('wrong or expired session token'));
 
-      socket.user = session.user;
-      next();
-    } catch (err) {
-      next(err);
-    }
+    socket.user = session.user;
+    next();
   });
 
   io.on('connection', function(socket) {
